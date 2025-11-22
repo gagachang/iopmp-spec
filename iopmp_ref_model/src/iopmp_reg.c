@@ -63,7 +63,6 @@ int reset_iopmp() {
 
     // Hardware Configuration
     g_reg_file.hwcfg0.tor_en           = IOPMP_TOR_EN;
-    g_reg_file.hwcfg2.prio_ent_prog    = IOPMP_PRIO_ENT_PROG;
     g_reg_file.hwcfg2.chk_x            = IOPMP_CHK_X;
     g_reg_file.hwcfg2.peis             = IOPMP_PEIS;
     g_reg_file.hwcfg2.pees             = IOPMP_PEES;
@@ -89,7 +88,15 @@ int reset_iopmp() {
     g_reg_file.hwcfg1.rrid_num         = IOPMP_RRID_NUM;
     g_reg_file.hwcfg1.entry_num        = IOPMP_ENTRY_NUM;
 
+#if (IOPMP_NON_PRIO_EN)
     g_reg_file.hwcfg2.prio_entry       = IOPMP_PRIO_ENTRY;
+    g_reg_file.hwcfg2.prio_ent_prog    = IOPMP_PRIO_ENT_PROG;
+    g_reg_file.hwcfg2.non_prio_en      = IOPMP_NON_PRIO_EN;
+#else
+    g_reg_file.hwcfg2.prio_entry       = IOPMP_ENTRY_NUM;
+    g_reg_file.hwcfg2.prio_ent_prog    = 0;
+    g_reg_file.hwcfg2.non_prio_en      = 0;
+#endif
 #if (IOPMP_RRID_TRANSL_EN)
     g_reg_file.hwcfg3.rrid_transl      = IOPMP_RRID_TRANSL;
 #else
@@ -474,10 +481,12 @@ void write_register(uint64_t offset, reg_intf_dw data, uint8_t num_bytes) {
         return;
 
     case HWCFG2_OFFSET:
-        if (g_reg_file.hwcfg2.prio_ent_prog) {
-            g_reg_file.hwcfg2.prio_entry = hwcfg2_temp.prio_entry;
-        }
-        g_reg_file.hwcfg2.prio_ent_prog &= ~hwcfg2_temp.prio_ent_prog;
+        #if (IOPMP_NON_PRIO_EN)
+            if (g_reg_file.hwcfg2.prio_ent_prog) {
+                g_reg_file.hwcfg2.prio_entry = hwcfg2_temp.prio_entry;
+            }
+            g_reg_file.hwcfg2.prio_ent_prog &= ~hwcfg2_temp.prio_ent_prog;
+        #endif
         break;
 
     case HWCFG3_OFFSET:
