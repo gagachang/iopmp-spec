@@ -59,7 +59,8 @@ MODELS := full_model:fullmodel.c \
           unnamed_model_3:unnamed_model_3.c \
           unnamed_model_4:unnamed_model_4.c
 else
-MODELS := libiopmp_INFO:libiopmp_INFO.c
+MODELS := libiopmp_INFO:libiopmp_INFO.c \
+          libiopmp_full_model:libiopmp_fullmodel.c
 endif
 
 # Targets
@@ -167,8 +168,9 @@ help:
 	@echo "  unnamed_model_3       SRCMD_FMT = 2, MDCFG_FMT = 1"
 	@echo "  unnamed_model_4       SRCMD_FMT = 2, MDCFG_FMT = 2"
 	@echo ""
-	@echo "Available libiopmp test program:"
+	@echo "Available libiopmp test programs:"
 	@echo "  libiopmp_INFO         SRCMD_FMT = 0, MDCFG_FMT = 0"
+	@echo "  libiopmp_full_model   SRCMD_FMT = 0, MDCFG_FMT = 0"
 	@echo ""
 
 # Clean the binary and library directories
