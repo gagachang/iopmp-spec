@@ -512,12 +512,10 @@ int main()
     configure_srcmd_n(&iopmp, SRCMD_X, 31, 0x10, 4);
     configure_entry_n(&iopmp, ENTRY_ADDR, ((iopmp.reg_file.hwcfg3.md_entry_num + 1) * 3), 74, 4); // (300 >> 2) and keeping lsb 0
     configure_entry_n(&iopmp, ENTRY_CFG, ((iopmp.reg_file.hwcfg3.md_entry_num + 1) * 3), 0x1C, 4);
-    set_hwcfg0_enable(&iopmp);
     configure_srcmd_n(&iopmp, SRCMD_EN, 32, 0x20, 4);
     configure_srcmd_n(&iopmp, SRCMD_X, 32, 0x20, 4);
     configure_entry_n(&iopmp, ENTRY_ADDR, ((iopmp.reg_file.hwcfg3.md_entry_num + 1) * 4), 90, 4); // (364 >> 2) and keeping lsb 0
     configure_entry_n(&iopmp, ENTRY_CFG, ((iopmp.reg_file.hwcfg3.md_entry_num + 1) * 4), 0x18, 4);
-    set_hwcfg0_enable(&iopmp);
     configure_entry_n(&iopmp, ENTRY_ADDR, ((iopmp.reg_file.hwcfg3.md_entry_num + 1) * 4), 90, 4); // (364 >> 2) and keeping lsb 0
     configure_entry_n(&iopmp, ENTRY_CFG, ((iopmp.reg_file.hwcfg3.md_entry_num + 1) * 4), 0x1C, 4);
     set_hwcfg0_enable(&iopmp);

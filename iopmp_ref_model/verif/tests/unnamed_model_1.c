@@ -392,10 +392,8 @@ int main()
     receiver_port(32, 360, 0, 3, INSTR_FETCH, 0, &iopmp_trans_req);
     configure_entry_n(&iopmp, ENTRY_ADDR, (iopmp_trans_req.rrid * (iopmp.reg_file.hwcfg3.md_entry_num + 1)), 74, 4);
     configure_entry_n(&iopmp, ENTRY_CFG, (iopmp_trans_req.rrid * (iopmp.reg_file.hwcfg3.md_entry_num + 1)), 0x1C, 4);
-    set_hwcfg0_enable(&iopmp);
     configure_entry_n(&iopmp, ENTRY_ADDR, (iopmp_trans_req.rrid * (iopmp.reg_file.hwcfg3.md_entry_num + 1)), 90, 4);
     configure_entry_n(&iopmp, ENTRY_CFG, (iopmp_trans_req.rrid * (iopmp.reg_file.hwcfg3.md_entry_num + 1)), 0x18, 4);
-    set_hwcfg0_enable(&iopmp);
     configure_entry_n(&iopmp, ENTRY_ADDR, (iopmp_trans_req.rrid * (iopmp.reg_file.hwcfg3.md_entry_num + 1)), 90, 4);
     configure_entry_n(&iopmp, ENTRY_CFG, (iopmp_trans_req.rrid * (iopmp.reg_file.hwcfg3.md_entry_num + 1)), 0x1C, 4);
     set_hwcfg0_enable(&iopmp);
