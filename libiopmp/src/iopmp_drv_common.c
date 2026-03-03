@@ -452,17 +452,34 @@ static void detect_stall_function(IOPMP_t *iopmp)
 
 void detect_entry_addr_bits(IOPMP_t *iopmp)
 {
-    uint64_t val;
-    uintptr_t addr_entry_0 = iopmp->addr_entry_array;
+    uint64_t val = 0;
+    uintptr_t entry;
+    uint32_t entrylck_f, entry_cfg, entry_addr, entry_addrh;
+    int i;
 
-    io_write32(addr_entry_0 + IOPMP_ENTRY_CFG_BASE, 0);
-    io_write32(addr_entry_0 + IOPMP_ENTRY_ADDR_BASE, 0xFFFFFFFF);
-    val = io_read32(addr_entry_0 + IOPMP_ENTRY_ADDR_BASE);
-    io_write32(addr_entry_0 + IOPMP_ENTRY_ADDR_BASE, 0);    /* Clear */
-    if (iopmp->addrh_en) {
-        io_write32(addr_entry_0 + IOPMP_ENTRY_ADDRH_BASE, 0xFFFFFFFF);
-        val |= (uint64_t)io_read32(addr_entry_0 + IOPMP_ENTRY_ADDRH_BASE) << 32;
-        io_write32(addr_entry_0 + IOPMP_ENTRY_ADDRH_BASE, 0);   /* Clear */
+    entrylck_f = EXTRACT_FIELD(io_read32(iopmp->addr + IOPMP_ENTRYLCK_BASE),
+                               IOPMP_ENTRYLCK_F);
+    /*Search for an unlocked and unused entry that we can safely use to detect*/
+    for (i = entrylck_f; i < iopmp->entry_num; i++) {
+        entry = get_addr_of_entry(iopmp, i);
+        entry_cfg = io_read32(entry + IOPMP_ENTRY_CFG_BASE);
+        entry_addr = io_read32(entry + IOPMP_ENTRY_ADDR_BASE);
+        entry_addrh = iopmp->addrh_en ?
+                      io_read32(entry + IOPMP_ENTRY_ADDRH_BASE) : 0;
+        if (entry_cfg || entry_addr || entry_addrh) {
+            /* Search for next entry */
+            continue;
+        }
+
+        io_write32(entry + IOPMP_ENTRY_ADDR_BASE, 0xFFFFFFFF);
+        val = io_read32(entry + IOPMP_ENTRY_ADDR_BASE);
+        io_write32(entry + IOPMP_ENTRY_ADDR_BASE, 0);       /* Clear */
+        if (iopmp->addrh_en) {
+            io_write32(entry + IOPMP_ENTRY_ADDRH_BASE, 0xFFFFFFFF);
+            val |= (uint64_t)io_read32(entry + IOPMP_ENTRY_ADDRH_BASE) << 32;
+            io_write32(entry + IOPMP_ENTRY_ADDRH_BASE, 0);  /* Clear */
+        }
+        break;
     }
 
     iopmp->entry_addr_bits = val;
