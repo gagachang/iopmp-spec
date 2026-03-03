@@ -518,14 +518,14 @@ enum iopmp_entry_flags {
 
     /** [Software flag] Forcefully set ENTRY_CFG.a = OFF */
     IOPMP_ENTRY_FORCE_OFF = (1UL << 27),
-    /** [Software flag] Forcefully set ENTRY(0).a = TOR */
+    /** [Software flag] Forcefully set ENTRY_CFG(0).a = TOR */
     IOPMP_ENTRY_FIRST_TOR = (1UL << 28),
-    /** [Software flag] Forcefully set ENTRY.a = TOR */
+    /** [Software flag] Forcefully set ENTRY_CFG.a = TOR */
     IOPMP_ENTRY_FORCE_TOR = (1UL << 29),
 
-    /** [Software flag] FLag to indicate this entry is priority entry */
+    /** [Software flag] Flag to indicate this entry is priority entry */
     IOPMP_ENTRY_PRIO = (1UL << 30),
-    /** [Software flag] FLag to indicate this entry is non-priority entry */
+    /** [Software flag] Flag to indicate this entry is non-priority entry */
     IOPMP_ENTRY_NON_PRIO = (1UL << 31),
 
     /** Bit mask of all software flags */
@@ -2015,10 +2015,10 @@ enum iopmp_error iopmp_sps_get_rrid_md_write(IOPMP_t *iopmp, uint32_t rrid,
  * \retval IOPMP_ERR_ILLEGAL_VALUE if the written \p mds does not match the
  *         actual values
  */
-enum iopmp_error iopmp_sps_set_rrid_insn_fetch(IOPMP_t *iopmp, uint32_t rrid,
-                                               uint64_t mds_set,
-                                               uint64_t mds_clr,
-                                               uint64_t *mds);
+enum iopmp_error iopmp_sps_set_rrid_md_insn_fetch(IOPMP_t *iopmp, uint32_t rrid,
+                                                  uint64_t mds_set,
+                                                  uint64_t mds_clr,
+                                                  uint64_t *mds);
 
 /**
  * \brief (SPS only) Get RRID's instruction fetch permission to MDs
