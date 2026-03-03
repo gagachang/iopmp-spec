@@ -394,15 +394,6 @@ DECLARE_FUNC_GET_ADDR_OF_ENTRY(entry_cfg,   IOPMP_ENTRY_CFG_BASE);
 /******************************************************************************/
 /* Internal functions to read/write value from/to IOPMP instance              */
 /******************************************************************************/
-static void write_hwcfg0(IOPMP_t *iopmp, uint32_t mask, uint32_t val)
-{
-    uint32_t hwcfg0;
-
-    hwcfg0 = io_read32(iopmp->addr + IOPMP_HWCFG0_BASE);
-    hwcfg0 = (hwcfg0 & ~mask) | (val & mask);
-    io_write32(iopmp->addr + IOPMP_HWCFG0_BASE, hwcfg0);
-}
-
 static void write_hwcfg2(IOPMP_t *iopmp, uint32_t mask, uint32_t val)
 {
     uint32_t hwcfg2;
@@ -496,7 +487,7 @@ void detect_entry_addr_bits(IOPMP_t *iopmp)
  */
 static void generic_enable(IOPMP_t *iopmp)
 {
-    write_hwcfg0(iopmp, IOPMP_HWCFG0_ENABLE_MASK, IOPMP_HWCFG0_ENABLE_MASK);
+    io_write32(iopmp->addr + IOPMP_HWCFG0_BASE, IOPMP_HWCFG0_ENABLE_MASK);
 }
 
 /**
