@@ -378,11 +378,9 @@ int main()
     configure_mdcfg_n(&iopmp, 3, 17, 4);
     configure_entry_n(&iopmp, ENTRY_ADDR, 1, 74, 4);    // (300 >> 2) and keeping lsb 0
     configure_entry_n(&iopmp, ENTRY_CFG, 1, (NAPOT | X), 4);
-    set_hwcfg0_enable(&iopmp);
     configure_mdcfg_n(&iopmp, 32, 25, 4);
     configure_entry_n(&iopmp, ENTRY_ADDR, 18, 90, 4);    // (364 >> 2) and keeping lsb 0
     configure_entry_n(&iopmp, ENTRY_CFG, 18, (NAPOT), 4);
-    set_hwcfg0_enable(&iopmp);
     configure_entry_n(&iopmp, ENTRY_ADDR, 20, 90, 4);    // (364 >> 2) and keeping lsb 0
     configure_entry_n(&iopmp, ENTRY_CFG, 20, (NAPOT | X), 4);
     set_hwcfg0_enable(&iopmp);

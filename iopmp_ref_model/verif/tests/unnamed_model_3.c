@@ -378,11 +378,9 @@ int main()
     configure_srcmd_n(&iopmp, SRCMD_PERMH, 29, 0x1C, 4);
     configure_entry_n(&iopmp, ENTRY_ADDR, 1, 74, 4); // (300 >> 2) and keeping lsb 0
     configure_entry_n(&iopmp, ENTRY_CFG, 1, 0x1C, 4);
-    set_hwcfg0_enable(&iopmp);
     configure_srcmd_n(&iopmp, SRCMD_PERMH, 30, 0x18, 4);
     configure_entry_n(&iopmp, ENTRY_ADDR, 18, 90, 4); // (364 >> 2) and keeping lsb 0
     configure_entry_n(&iopmp, ENTRY_CFG, 18, 0x18, 4);
-    set_hwcfg0_enable(&iopmp);
     configure_entry_n(&iopmp, ENTRY_ADDR, 20, 90, 4); // (364 >> 2) and keeping lsb 0
     configure_entry_n(&iopmp, ENTRY_CFG, 20, 0x1C, 4);
     set_hwcfg0_enable(&iopmp);
