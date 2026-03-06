@@ -19,7 +19,7 @@ SPECNAME := iopmp
 
 ifneq ($(SKIP_DOCKER),true)
 	DOCKER_CMD := docker run --rm -v ${PWD}:/build -w /build \
-	riscvintl/riscv-docs-base-container-image:latest \
+	ghcr.io/riscv/riscv-docs-base-container-image:latest \
 	/bin/sh -c
 	DOCKER_QUOTE := "
 endif
